@@ -17,7 +17,8 @@ CRON_LOG=/Users/hasegawa/git/yokwe-base/tmp/cron.log
 
 # CLEAR SAVE FILE
 #m   h     dom mon dow   command
-02   1     *   *   *     cd $YOKWE_BASE; ( make LOG_TITLE="maintain save file"  log-start maintain-save-file log-stop ) 1>>$CRON_LOG 2>&1
+02   1     *   *   *     cd $YOKWE_BASE; ( make LOG_TITLE="maintain save file"   log-start maintain-save-file   log-stop ) 1>>$CRON_LOG 2>&1
+03   1     *   *   *     cd $YOKWE_BASE; ( make LOG_TITLE="maintain report file" log-start maintain-report-file log-stop ) 1>>$CRON_LOG 2>&1
 
 # SAVE FILE AND CLEAR LOG FILE
 #m   h     dom mon dow   command

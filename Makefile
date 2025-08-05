@@ -2,15 +2,15 @@
 #
 #
 
-DATA_PATH_FILE := ../yokwe-base/data/DataPathLocation
-DATA_PATH_     := $(shell cat $(DATA_PATH_FILE))
-FINANCE_PATH   := $(DATA_PATH_)finance
+DATA_PATH_FILE := data/DataPathLocation
+DATA_PATH      := $(shell cat $(DATA_PATH_FILE))
+FINANCE_PATH   := $(DATA_PATH)finance
 
 .PHONY: all build check-finance-path
 
 
 all: check-finance-path
-	@echo "DATA_PATH                 $(DATA_PATH_)"
+	@echo "DATA_PATH                 $(DATA_PATH)"
 	@echo "FINANCE_PATH              $(FINANCE_PATH)"
 
 check-finance-path:
@@ -48,8 +48,24 @@ maintain-save-file: check-finance-path
 
 maintain-log-file: check-finance-path
 	@date +'%F %T TAR START'
+	touch ../yokwe-util/tmp/yokwe-util.log
+	touch ../yokwe-finance-data/tmp/yokwe-finance-data.log
+	touch ../yokwe-finance-report/tmp/yokwe-finance-report.log
+	
+	cp -p ../yokwe-util/tmp/yokwe-util.log                     tmp
+	cp -p ../yokwe-finance-data/tmp/yokwe-finance-data.log     tmp
+	cp -p ../yokwe-finance-report/tmp/yokwe-finance-report.log tmp
+	
+	echo -n >../yokwe-util/tmp/yokwe-util.log
+	echo -n >../yokwe-finance-data/tmp/yokwe-finance-data.log
+	echo -n >../yokwe-finance-report/tmp/yokwe-finance-report.log
+	
 	tar cfz $(FINANCE_PATH)/save/log_$$(date +%Y%m%d).taz tmp/*.log
 	@date +'%F %T TAR STOP'
+	rm tmp/cron.log
+	rm tmp/yokwe-util.log
+	rm tmp/yokwe-finance-data.log
+	rm tmp/yokwe-finance-report.log
 	echo -n >tmp/cron.log
 
 save-all: check-finance-path save-data rsync-to-Backup2T
@@ -67,7 +83,7 @@ rsync-to-Backup2T: check-finance-path
 #
 # finance/report
 #
-clear-report-file: check-finance-path
+maintain-report-file: check-finance-path
 	find $(FINANCE_PATH)/report   -mtime +7d -print -delete
 
 
@@ -75,5 +91,5 @@ clear-report-file: check-finance-path
 # misc
 #
 check-temp-file: check-finance-path
-	find $(FINANCE_PATH) -regex '.*/\.DS.*'           -print
-	find $(FINANCE_PATH) -regex '.*/\.[^a-zA-Z0-9].*' -print
+	find .. $(FINANCE_PATH) -regex '.*/\.DS.*'           -print
+	find .. $(FINANCE_PATH) -regex '.*/\.[^a-zA-Z0-9].*' -print
