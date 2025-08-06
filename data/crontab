@@ -27,7 +27,7 @@ CRON_LOG=/Users/hasegawa/git/yokwe-base/tmp/cron.log
 # SAVE FILE
 #m   h     dom mon dow   command
 05   5     *   *   *     cd $YOKWE_BASE; ( make LOG_TITLE="save file"  log-start save-all log-stop ) 1>>$CRON_LOG 2>&1
-05   13    *   *   *     cd $YOKWE_BASE; ( make LOG_TITLE="save file"  log-start save-all log-stop ) 1>>$CRON_LOG 2>&1
+50   13    *   *   *     cd $YOKWE_BASE; ( make LOG_TITLE="save file"  log-start save-all log-stop ) 1>>$CRON_LOG 2>&1
 05   21    *   *   *     cd $YOKWE_BASE; ( make LOG_TITLE="save file"  log-start save-all log-stop ) 1>>$CRON_LOG 2>&1
 
 
@@ -39,7 +39,7 @@ CRON_LOG=/Users/hasegawa/git/yokwe-base/tmp/cron.log
 # UPDATE DATA US
 #m   h     dom mon dow   command
 45   12    *   *   2-6   cd $YOKWE_DATA;   ( make LOG_TITLE="update data us"  log-start update-data-us log-stop ) 1>>$CRON_LOG 2>&1
-45   14    *   *   2-6   cd $YOKWE_REPORT; ( make LOG_TITLE="update report"   log-start updae-report log-stop   ) 1>>$CRON_LOG 2>&1
+45   13    *   *   2-6   cd $YOKWE_REPORT; ( make LOG_TITLE="update report"   log-start updae-report log-stop   ) 1>>$CRON_LOG 2>&1
 
 # UPDATE FX
 #m   h     dom mon dow   command
